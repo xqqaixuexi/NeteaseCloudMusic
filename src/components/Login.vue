@@ -12,7 +12,8 @@
 				<input type="password" v-model="pwd" required />
 			</div>
 			<div>
-				<mt-button type="danger" v-bind:class="{'is-disabled':(!name||!pwd)}" size="large">登录</mt-button>
+				<!-- <mt-button type="danger" v-bind:class="{'is-disabled':(!name||!pwd||loading)}" size="large">登录</mt-button> -->
+				<button type="danger" v-bind:class="{'is-disabled':(!name||!pwd||loading)}" size="large">登录</button>
 			</div>
 		</form>
 	</div>
@@ -20,7 +21,7 @@
 
 <script>
 	import api from "@/api"
-	import { mapGetters } from 'vuex';
+	import { mapGetters } from 'vuex'
 	import {
 		Toast
 	} from 'mint-ui';
@@ -37,17 +38,13 @@
 			Toast
 		},
 		mounted () {
-		    if (this.getLogin) {
-		      // this.$router.replace('/index');
-		    }
+
 		},
-		//  computed: {
-		//     ...mapGetters([
-		//       'getLogin',
-		//       'getuname',
-		//       'getpwd'
-		//     ])
-		// },
+		computed: {
+		    // ...mapGetters([
+		    //   'getLogin'
+		    // ])
+		},
 		methods: {
 			login() {
 				this.loading = true;
@@ -60,19 +57,16 @@
 						});
 						return;
 					}
-					//logined=true;
 					this.$store.commit('userMsg',res.data)
-					
 					//this.$store.dispatch('getlike');
-					this.$router.replace('/index');
 					console.log(this.$store.state.user)
-        			//this.$router.back()
+					localStorage.setItem("user", JSON.stringify(res.data));
+        			this.$router.back()
 					// 
-					// localStorage.setItem("user", JSON.stringify(res.data.i));
+					
 					// //localStorage.setItem("cookie", res.data.c);
 					// this.$store.commit("localuser", res.data.i)
 					// this.$store.dispatch('getlike');
-					// console.log(this.$store.user);
 					// 
 				})
 			}
@@ -83,7 +77,7 @@
 <style scoped>
 	.mint-header {
 		background: #2d2d2d;
-		max-width: 750px;
+/*		max-width: 750px;*/
 		width: 100%;
 		position: relative;
 	}

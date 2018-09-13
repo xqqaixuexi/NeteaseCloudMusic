@@ -6,12 +6,14 @@ import router from './router'
 import store from './store/index'
 import axios from 'axios'
 import api from './api'
+import ElementUI from 'element-ui';
 import mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import './assets/layout.css'
 Vue.config.productionTip = false
 
-Vue.use(mint);
+// Vue.use(mint);
+Vue.use(ElementUI);
 
 // var instance = axios.create({
 //   baseURL:"http://192.168.193.121:4000/",

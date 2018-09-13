@@ -7,15 +7,19 @@
 
  export default new Vuex.Store({
  	state: {
- 		user:{}
+ 		user: JSON.parse(localStorage.getItem('user')) || {},
+ 		
  	},
  	getters: {
- 		 //getLogin: (state) => state.logined
+ 		getUserInfo: state =>{
+ 			return state.user;
+ 		}
  	},
  	mutations: {
  		userMsg(state, user){
+ 			localStorage.setItem("user", JSON.stringify(user));
  			state.user = user;
- 			//logined = user.account ? true : false;
+ 			logined = user.account ? true : false;
  		}
  	},
  	actions: {

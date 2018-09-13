@@ -1,6 +1,5 @@
 // const limit = 20;
 import axios from 'axios'
-
 export default {
 	login(name, pwd) {
 		var data = {
@@ -11,6 +10,18 @@ export default {
 		return axios((/^0\d{2,3}\d{7,8}$|^1[34578]\d{9}$/.test(name) ? "login/cellphone" : "login"), {
 			params: data
 		})
+	},
+	//用户信息
+	user_detail(id) {
+		return axios("user/detail?uid=" + id)
+	},
+	//轮播图
+	get_banner(){
+		return axios("banner")
+	},
+	//热门推荐
+	get_personalized(){
+		return axios("personalized")
 	},
 	// index_rec() {
 	// 	// 首页个人推荐内容：歌单，新歌，mv，电台
@@ -192,9 +203,7 @@ export default {
 	// 		}
 	// 	})
 	// },
-	// user_detail(id) {
-	// 	return axios("user/detail?uid=" + id)
-	// },
+
 	// user_playlist(id, offset) {
 	// 	return axios("user/playlist?uid=" + id + '&offset=' + offset + '&limit=' + limit)
 	// },
