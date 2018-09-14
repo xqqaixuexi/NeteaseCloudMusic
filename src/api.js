@@ -23,6 +23,16 @@ export default {
 	get_personalized(){
 		return axios("personalized")
 	},
+	//新碟上架
+	get_album(offset,limit){
+		return axios("/top/album?offset="+offset+"&limit="+limit)
+	},
+	get_topList(idx){
+		return axios("/top/list?idx="+idx)
+	},
+	// get_album(){
+	// 	return axios("top/album?offset=0&limit=10")
+	// },
 	// index_rec() {
 	// 	// 首页个人推荐内容：歌单，新歌，mv，电台
 	// 	let banner = axios("banner");

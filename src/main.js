@@ -53,7 +53,7 @@ axios.interceptors.response.use((res) => {
 	if(res.data.code === 301) {
 		console.log('未登录')
 	} else if(res.data.code !== 200) {
-		alert('账号或密码错误')
+		alert('数据加载出错')
 	}
 	return res
 }, (error) => {
