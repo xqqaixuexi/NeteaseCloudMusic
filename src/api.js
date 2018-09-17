@@ -11,6 +11,10 @@ export default {
 			params: data
 		})
 	},
+	//获取登录状态
+	get_logined(){
+		return axios("/login/status")
+	},
 	//用户信息
 	user_detail(id) {
 		return axios("user/detail?uid=" + id)
@@ -27,8 +31,13 @@ export default {
 	get_album(offset,limit){
 		return axios("/top/album?offset="+offset+"&limit="+limit)
 	},
+	//获取榜单
 	get_topList(idx){
 		return axios("/top/list?idx="+idx)
+	},
+	//获取歌手(可根据不同传参分类)
+	get_singerList(cat){
+		return axios("/artist/list?cat="+cat)
 	},
 	// get_album(){
 	// 	return axios("top/album?offset=0&limit=10")

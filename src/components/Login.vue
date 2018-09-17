@@ -13,7 +13,7 @@
 			</div>
 			<div>
 				<!-- <mt-button type="danger" v-bind:class="{'is-disabled':(!name||!pwd||loading)}" size="large">登录</mt-button> -->
-				<button type="danger" v-bind:class="{'is-disabled':(!name||!pwd||loading)}" size="large">登录</button>
+				<button  class="btn"type="danger" v-bind:class="{'is-disabled':(!name||!pwd||loading)}" size="large">登录</button>
 			</div>
 		</form>
 	</div>
@@ -110,5 +110,18 @@
 		background: transparent;
 		border: none;
 		padding: 1em .5em;
+	}
+	.btn{
+		display: block;
+	    width: 100px;
+	    height: 31px;
+	    margin: 0 auto;
+	    line-height: 31px;
+	    text-align: center;
+	    color: #fff;
+	    background-color:#C10D0C;
+	    box-shadow: 1px 1.5px 0 #8a060b;
+	    border-radius:5px;
+	    cursor:pointer;
 	}
 </style>
