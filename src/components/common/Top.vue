@@ -3,12 +3,12 @@
 		<div class="m-top">
 			<div class="warp cf">
 				<h1 class="logo">
-					<a href="/#">网易云音乐</a>
+					<a href="#/">网易云音乐</a>
 				</h1>
 				<ul class="m-nav">
 					<li class="fst">
 						<span>
-							<a href="/#" class="bg-black">
+							<a href="" class="bg-black">
 								<em>发现音乐</em>
 								<sub class="cor triangle_border_up"></sub>
 							</a>
@@ -16,7 +16,7 @@
 					</li>
 					<li>
 						<span>
-							<a href="/#" class="">
+							<a href="" class="">
 								<em>我的音乐</em>
 								<sub class="cor"></sub>
 							</a>
@@ -24,29 +24,27 @@
 					</li>
 				</ul>
 				<div class="login">
-					<div v-show="!logined">
+					<div v-if="!logined">
 						<a class="link" href="/#/login">登录</a>
 					</div>
-					<div v-show="logined">
+					<div v-if="logined">
 						<div class="userInfo ">
 							<img v-bind:src="getUserInfo.profile.avatarUrl">
-
 						</div>
 						<div class="userInfoList">
 							<ul>
 							<router-link :to="{ path: '/user/home', query: { id: getUserInfo.profile.userId }}">
 								<li>
 								我的主页
-									<!-- <a :href='"/#/user/home/"+"?id"=getUserInfo.profile.userId'></a> -->
 								</li>
 							</router-link>
 
 								<li>
-									<a href="">退出</a>
+									<a v-on:click="Logout()">退出</a>
 								</li>
 							</ul>
 						</div>
-					</div>
+					</div> 
 				</div>
 				<div class="search">
 					<div class="searchbg">
@@ -97,8 +95,8 @@
 	</div>
 </template>
 <script>
+import api from "@/api"
 import { mapGetters } from 'vuex'
-console.log(logined)
 	export default {
 		name:'top',
 		// props:{
@@ -106,20 +104,44 @@ console.log(logined)
 		// },
 		data(){
 			return{
-				logined,
 
 			}
 		},
 		mounted (){
-
 		},
 		computed: {
 		    ...mapGetters([
-		    	'getUserInfo'
+		    	'getUserInfo',
+		    	'logined'
 		      // ...
 		    ])
 		},
 		methods: {
+			Logout() {
+				let r=confirm("您确定退出吗？");
+				if(r==true){
+					this.$store.commit('loginedMsg',false)
+					this.$router.go(0)
+				}
+				else{
+					return
+				}
+				//localStorage.setItem("isLogined", false);
+				//console.log(localStorage.getItem("isLogined"))
+						//登出接口有问题
+				// api.logout().then(res =>{					
+				// 	if(res.data.code = 200) {
+
+				// 		console.log(this.res)
+				// 		this.$store.commit('loginedMsg',false)
+				// 		this.$router.go(0)
+				// 		//this.personalized= res.data.result
+				// 		// console.log(this.personalized)
+				// 	}
+				//  })				
+			}
+			
+
 
 		}
 
@@ -127,6 +149,9 @@ console.log(logined)
 
 </script>
 <style lang="less" scoped>
+    a{
+    	color: #fff; 
+    }
 	.bg-black{
 		background: #000;
 	}
@@ -243,7 +268,6 @@ console.log(logined)
 				    .parent{
 				    	display: block;
 					    position: relative;
-					    margin: 8px 0 0 30px;
 					    input{
 					    	height:32px;
 					    	color: #333;

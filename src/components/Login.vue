@@ -1,7 +1,7 @@
 <template>
 	<div class="form-common ">
-		<mt-header fixed  title="登录">
-		</mt-header>
+<!-- 		<mt-header fixed  title="登录">
+		</mt-header> -->
 		<form @submit.prevent="login">
 			<div class="formc-cnt">
 				<span>账号：</span>
@@ -57,17 +57,17 @@
 						});
 						return;
 					}
+					//this.isLogined=true;
+					localStorage.setItem("user", JSON.stringify(res.data));
+					// console.log(res.data)
 					this.$store.commit('userMsg',res.data)
 					//this.$store.dispatch('getlike');
-					console.log(this.$store.state.user)
-					localStorage.setItem("user", JSON.stringify(res.data));
+					console.log(res.data)
+					//改变登录状态
+					//localStorage.setItem("isLogined", true);
+					this.$store.commit("loginedMsg",true)
         			this.$router.back()
-					// 
 					
-					// //localStorage.setItem("cookie", res.data.c);
-					// this.$store.commit("localuser", res.data.i)
-					// this.$store.dispatch('getlike');
-					// 
 				})
 			}
 		}

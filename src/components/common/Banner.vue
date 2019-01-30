@@ -3,7 +3,7 @@
     <Swipe class="my-swipe" :auto="5000" :speed="800" >
       <Swipe-item v-for="item in banners" >
       <div class="index-banner" :style="{backgroundImage:'url('+item.backgroundUrl+')'}">
-      <a href="">
+      <a :href= " item.url.indexOf('http') === -1 ? 'https://music.163.com'+item.url : item.url" target="_blank">
       	      	<img :src="item.picUrl">
       </a>
 

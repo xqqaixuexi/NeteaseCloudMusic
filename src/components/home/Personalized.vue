@@ -28,9 +28,16 @@
 				<li v-for="(item, index) in personalized" v-if='index<8'>
 					<div class="u-cover">
 						<img :src="item.picUrl">
-						<a :href="'/playlist/?id='+item.id" class="msk" title="查看歌单"></a>
+							<router-link :to="{ path:'/playlist', query: { id: item.id }}">
+								<a class="msk" title="查看歌单"></a>
+							</router-link>
+
+						
+						<!-- <a :href="'/#/playlist/?id='+item.id" class="msk" title="查看歌单"></a> -->
 						<div class="bottom">
-							<span class="nb">{{item.trackCount}}万</span>
+							<span class="nb">
+								{{item.playCount>10000 ? Math.floor(item.playCount/10000)+'万': item.playCount}}
+							</span>
 						</div>
 					</div>
 					<p>{{item.name}}</p>
@@ -39,7 +46,7 @@
 		</div>
 		<div class="newMusic cf">
 			<div class="homenav-h2">
-				<a href="/discover/album/" class="tit f-ff2 f-tdn">新碟上架</a>
+				<a href="" class="tit f-ff2 f-tdn">新碟上架</a>
 				<span class="more">
 					<a href="">更多</a>
 					>>
@@ -50,7 +57,7 @@
 					<li v-for="item in albums">
 						<div class="u-cover">
 							<img :src="item.picUrl">
-							<a :href="'/album/?id='+item.id" class="msk" title="查看详情"></a>
+							<a :href="'/#/album/?id='+item.id" class="msk" title="查看详情"></a>
 						</div>
 						<p>{{item.name}}</p>
 					</li>
@@ -82,7 +89,7 @@
 						<ol>
 							<li v-for="(item, index) in cloudMusicList.tracks" v-if="index<10">
 								<span :style="topListStyle" > {{index+1}}</span>
-								<a href="" :title="item.name">{{item.name}}</a>
+								<a :href="'#/song?id='+item.id" :title="item.name">{{item.name}}</a>
 							</li>
 							<div class="more">
 								<a href="">查看全部></a>
@@ -106,7 +113,7 @@
 						<ol>
 							<li v-for="(item, index) in newMusicList.tracks" v-if="index<10">
 								<span :style="topListStyle" > {{index+1}}</span>
-								<a href="" :title="item.name">{{item.name}}</a>
+								<a :href="'#/song?id='+item.id" :title="item.name">{{item.name}}</a>
 							</li>
 							<div class="more">
 								<a href="">查看全部></a>
@@ -130,7 +137,7 @@
 						<ol>
 							<li v-for="(item, index) in yuancMusicList.tracks" v-if="index<10">
 								<span :style="topListStyle" > {{index+1}}</span>
-								<a href="" :title="item.name">{{item.name}}</a>
+								<a :href="'#/song?id='+item.id" :title="item.name">{{item.name}}</a>
 							</li>
 							<div class="more">
 								<a href="">查看全部></a>
@@ -142,12 +149,41 @@
 		</div>		
 	</div>
 	<div class="home-right">
-		<div v-show="!logined" class="userInfo">
+		<div v-if="!logined" class="userInfo">
 			<p class="note">登录网易云音乐，可以享受无限收藏的乐趣，并且无限同步到手机</p>
 			<a href="/#/login" class="btn">用户登录</a>
 		</div>
-		<div v-show="logined" class="userInfo">
-			
+		<div v-if="logined" class="userInfo2">
+			<div class="n-myinfo">
+				<div class="cf">
+					<a :href="'#/user/home?id='+getUserInfo.profile.userId" class="head">
+						<img :src="getUserInfo.profile.avatarUrl">
+					</a>
+					<div class="info">
+						<h4>{{getUserInfo.profile.nickname}}</h4>
+					</div>
+				</div>
+				<ul class="dny cf">
+					<li class="fst">
+						<a href="'#/user/home?id='+getUserInfo.profile.userId">
+							<strong>{{getUserInfo.profile.eventCount}}</strong>
+							<span>动态</span>
+						</a>
+					</li>
+					<li>
+						<a href="'#/user/home?id='+getUserInfo.profile.userId">
+							<strong>{{getUserInfo.profile.follows}}</strong>
+							<span>关注</span>									
+						</a>
+					</li>
+					<li class="thr">
+						<a href="'#/user/home?id='+getUserInfo.profile.userId">
+							<strong>{{getUserInfo.profile.followeds}}</strong>
+							<span>粉丝</span>									
+						</a>
+					</li>														
+				</ul>
+			</div>		
 		</div>
 		<div class="singerList">
 			<h3 class="v-hd3">
@@ -164,7 +200,6 @@
 							<h4>
 								<span>{{item.name}}</span>
 							</h4>
-<!-- 							<p></p> -->
 						</div>
 					</a>
 				</li>
@@ -176,11 +211,11 @@
 </template>
 <script>
 	import api from "@/api"
+	import { mapState,mapGetters } from 'vuex'
 	export default{
 		name:"personalized",
 		data(){
 			return{
-				logined,
 				personalized:{},
 				albums:{},
 				cloudMusicList:{},
@@ -196,15 +231,20 @@
 			this.topList(0)
 			this.topList(2)
 			this.singerList(5001)
+			console.log(this.getUserInfo)
 		},
 		computed:{
-			  topListStyle() {
+		  	topListStyle() {
 			        if( this.index<3) {
 			            return 'color: #c10d0c';
 			        }
 			        // 否则不添加样式
 			        return 'color: #666';
-			  }
+		  	},
+		  	...mapGetters([
+				'logined',
+				'getUserInfo'
+			]),
 
 		},
 		methods:{
@@ -212,7 +252,7 @@
 				api.get_personalized().then(res =>{					
 					if(res.data.code = 200) {
 						this.personalized= res.data.result
-						// console.log(this.personalized)
+						//console.log(this.personalized)
 					}
 				})
 			},
@@ -229,15 +269,15 @@
 					if(res.data.code = 200){
 						if(idx==3){
 							this.cloudMusicList = res.data.playlist
-							console.log(res.data.playlist)
+							 // console.log(res.data)
 						}
 						if(idx==0){
 							this.newMusicList = res.data.playlist
-							console.log(res.data.playlist)
+							// console.log(res.data.playlist)
 						}
 						if(idx==2){
 							this.yuancMusicList = res.data.playlist
-							console.log(res.data.playlist)
+							// console.log(res.data.playlist)
 						}
 					}
 				})
@@ -247,7 +287,7 @@
 					if(res.data.code = 200){
 						this.artists = res.data.artists
 					}
-					console.log(this.artists)
+					// console.log(this.artists)
 				})
 			}
 		}
@@ -295,6 +335,7 @@
 	    	font-size: 20px;
 	    	font-weight: normal;
 	    	line-height: 28px;
+	    	color:#333;
 	    }
 	    .tab{
 		    float: left;
@@ -463,6 +504,7 @@
 					    height: 32px;
 					    text-align:left;
 					    font-size:12px;
+					    overflow:hidden;
 			    	}
 			    }
 			    .more{
@@ -480,6 +522,59 @@
 	    	border-left:0;
 	    	border-right:0;
 	    }
+	}
+	.userInfo2{
+		height: 185px;
+		border-bottom:1px solid #ccc;	
+		.n-myinfo {
+		    height: 106px;
+		    padding-top: 20px;
+		    .head {
+		    	position:relative;
+			    float: left;
+			    width: 80px;
+			    height: 80px;
+			    margin-left: 20px;
+			    padding: 2px;
+			    background: #fff;
+			    border: 1px solid #dadada;
+			}
+			.info{
+			    float: left;
+			    width: 115px;
+			    margin-left: 18px;
+			    padding-top: 30px;
+			}
+		}
+		.dny{
+			margin: 22px 0 0 20px;
+		    color: #666;
+		    li {
+			    float: left;
+			    height: 40px;
+			    padding: 0 18px;
+			    border-right: 1px solid #e4e4e4;
+			    a{
+		    	    display: block;
+                	color: #666;
+                	text-decoration:none;
+                	strong{
+            		    display: block;
+					    font-size: 20px;
+					    font-weight: normal;
+                	}
+                	span{
+            		    margin-left: 2px;
+                	}
+			    }
+			}
+			.fst{
+				padding-left: 0;
+			}
+			.thr{
+				border-right:0;
+			}
+		}	
 	}
 	.userInfo{
 		height: 126px;
@@ -505,6 +600,7 @@
 		    box-shadow: 1px 1.5px 0 #8a060b;
 		    border-radius:5px;
 		}
+
 	}
 	.singerList{
 		margin-top:15px;
@@ -519,7 +615,7 @@
 		    }
 		    a{
 		    	float:right;
-		    	color:#666;
+		    	color:#333;
 		    	font-weight: normal;
 		    }
 		    a:hover{
@@ -555,6 +651,9 @@
 					    	margin-top:8px;
 					    	text-align:left;
 					    	font-size:14px;
+					    	span{
+					    		color:#333;
+					    	}
 					    }
 				    }
 				}

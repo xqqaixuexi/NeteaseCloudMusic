@@ -3,6 +3,7 @@
 	padding: 0;
 	list-style: none;
 	box-sizing: border-box;
+	text-align: center;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	-webkit-overflow-scrolling: touch;
 }
@@ -37,7 +38,6 @@ svg {
 .is-fixed {
 	z-index: 10 !important
 }
-
 input:focus {
 	outline: none
 }
@@ -65,18 +65,24 @@ body {
 /*	max-width: 750px;*/
 	line-height: 1.4;
 	font-size: 14px;
+	background: rgb(245, 245, 245)
 }
 
 .mint-header-title {
 	font-size: 1rem;
 }
-
+.hide{
+	display: none;
+}
+.show{
+	display: block;
+}
 a {
-	color: #fff;
+	color: #333;
 	text-decoration: none;
 }
 
-
+a:hover{text-decoration:underline;color: #333;}
 /* 清除浮动 */
 .cf:before,.cf:after {
 content:"";

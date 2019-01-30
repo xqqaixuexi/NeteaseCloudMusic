@@ -11,13 +11,21 @@ export default {
 			params: data
 		})
 	},
-	//获取登录状态
+	//获取登录状态（接口有问题）
 	get_logined(){
 		return axios("/login/status")
+	},
+	//退出登录(接口有问题404)
+	logout(){
+		return axios("/logout")
 	},
 	//用户信息
 	user_detail(id) {
 		return axios("user/detail?uid=" + id)
+	},
+	//获取用户信息 , 歌单，收藏，mv, dj 数量(需要登录)
+	user_subcount(){
+		return axios("/user/subcount")
 	},
 	//轮播图
 	get_banner(){
@@ -39,9 +47,30 @@ export default {
 	get_singerList(cat){
 		return axios("/artist/list?cat="+cat)
 	},
-	// get_album(){
-	// 	return axios("top/album?offset=0&limit=10")
-	// },
+	//歌单详情（热门推荐点击进去）
+	get_playListDetail(id){
+		return axios("/playlist/detail?id="+ id )
+	},
+	//歌曲详情
+	get_songDetail(ids){
+		return axios("/song/detail?ids="+ ids)
+	},
+	//获取歌词
+	get_lyric(id){
+		return axios("/lyric?id="+id)
+	},
+	//获取相似歌曲
+	get_simiSong(id){
+		return axios("/simi/song?id="+id)
+	},
+	//获取歌曲URL
+	get_musicUrl(id){
+		return axios("/music/url?id="+id)
+	},
+	//专辑详情
+	get_albumDetail(id){
+		return axios("/album?id="+id)
+	},
 	// index_rec() {
 	// 	// 首页个人推荐内容：歌单，新歌，mv，电台
 	// 	let banner = axios("banner");

@@ -10,16 +10,19 @@ import ElementUI from 'element-ui';
 import mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import './assets/layout.css'
-Vue.config.productionTip = false
-
+import global_ from './Global'//引用文件
+import base from './base'
+  Vue.prototype.GLOBAL = global_//挂载到Vue实例上面
+  // Vue.prototype.base = base//挂载到Vue实例上面
 // Vue.use(mint);
 Vue.use(ElementUI);
-
+Vue.use(base);
 // var instance = axios.create({
 //   baseURL:"http://192.168.193.121:4000/",
 //   timeout:5000,
 //   headers: {'X-Custom-Header':'foobar'}
 // });
+
 axios.defaults.baseURL = 'http://localhost:4000/';
 // axios.get('http://localhost:4000/artist/list')
 //   .then(function(response){
@@ -53,18 +56,20 @@ axios.interceptors.response.use((res) => {
 	if(res.data.code === 301) {
 		console.log('未登录')
 	} else if(res.data.code !== 200) {
-		alert('数据加载出错')
+		//alert('数据加载出错')
 	}
 	return res
 }, (error) => {
 	console.log('promise error:' + error)
 	return Promise.reject(error)
 })
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  render:h => h(App),
   store,
-  components: { App },
+  //components: { App },
   template: '<App/>'
 })
