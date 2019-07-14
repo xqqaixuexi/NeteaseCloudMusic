@@ -104,10 +104,14 @@
 				this.getMusicUrl(id)
 				this.getSongDetail(id)
 				this.playOrPause()								
-
+				//this.nextMusic2(this.getCount)
 
 				//this.makeAudioPlay(id)
-			}
+			},
+			// getCount(count){
+				
+			// 	this.nextMusic2(count)
+			// }
 		},
 		computed:{
 			...mapGetters([
@@ -256,10 +260,11 @@
 		    		//var innerPause = document.getElementById("innerPause")
 	           		if(audio!==null){
 
-	           			audio.addEventListener("canplay", function(){					
+	           			audio.addEventListener("canplay", function(){	
+	           				innerPause.classList.remove("hide")
+							innerPlay.classList.add("hide")				
 							audio.play();
-							innerPause.classList.remove("hide")
-							innerPlay.classList.add("hide")
+
 							//console.log('canplay')
 						})
 	           		}
@@ -275,6 +280,8 @@
 	           		console.log(this.getCount,this.songIds[count])
 	           		this.$store.commit('songIdMsg',this.songIds[count])
 	           		var audio = document.getElementById("myAudio")
+
+
 		    		//var innerPause = document.getElementById("innerPause")
 	           		if(audio!==null){
 
@@ -290,9 +297,8 @@
            },
            //自动播放下一首
             nextMusic2(count){
-
+            	
             	var self = this
-
             	var innerPlay = document.getElementById("innerPlay")
 	    		var innerPause = document.getElementById("innerPause")
             	var audio = document.getElementById("myAudio")
@@ -307,13 +313,15 @@
 	           			self.$store.commit('countMsg',count)
 		           		self.$store.commit('songIdMsg',self.songIds[count])
 			    		//var innerPause = document.getElementById("innerPause")
+			    		//console.log(111)
 		           		if(audio!==null){
-
-		           			audio.addEventListener("canplay", function(){					
+		           			audio.addEventListener("canplay", function(){
+		           				//console.log(222)					
 								audio.play();
 								innerPause.classList.remove("hide")
 								innerPlay.classList.add("hide")
-							})
+								//console.log('canplay')
+							})	         			
 		           		}
 	           		}
 		        }, false);
@@ -352,8 +360,8 @@
 		    width: 100%;
 		    height: 45px;
 		    margin: 0 auto;
-		    background-color:#434343;
-		    opacity:0.97;
+		    background-color:black;
+		    opacity:0.85;
 			.hand {
 			    position: absolute;
 			    top: -10px;

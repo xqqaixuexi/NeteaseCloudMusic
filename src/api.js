@@ -1,17 +1,20 @@
 // const limit = 20;
 import axios from 'axios'
 export default {
+	//手机号登录
 	login(name, pwd) {
 		var data = {
-			email: name,
-			password: pwd,
-			phone: name
+			//email: name,
+			phone: name,
+			password: pwd
+
 		}
-		return axios((/^0\d{2,3}\d{7,8}$|^1[34578]\d{9}$/.test(name) ? "login/cellphone" : "login"), {
-			params: data
-		})
+		return axios(('login/cellphone'),{params:data})
+		// return axios((/^0\d{2,3}\d{7,8}$|^1[34578]\d{9}$/.test(name) ? "login/cellphone" : "login"), {
+		// 	params: data
+		// })
 	},
-	//获取登录状态（接口有问题）
+	//获取登录状态（接口状态码500）
 	get_logined(){
 		return axios("/login/status")
 	},
@@ -19,7 +22,7 @@ export default {
 	logout(){
 		return axios("/logout")
 	},
-	//用户信息
+	//用户详细信息
 	user_detail(id) {
 		return axios("user/detail?uid=" + id)
 	},
@@ -55,7 +58,7 @@ export default {
 	get_songDetail(ids){
 		return axios("/song/detail?ids="+ ids)
 	},
-	//获取歌词
+	//获取歌词(接口有问题,获取不到歌词，之前是可以的)
 	get_lyric(id){
 		return axios("/lyric?id="+id)
 	},
@@ -70,6 +73,14 @@ export default {
 	//专辑详情
 	get_albumDetail(id){
 		return axios("/album?id="+id)
+	},
+	//获取用户歌单
+	get_userPlayList(uid){
+		return axios("/user/playlist?uid="+uid)
+	},
+	//搜索
+	search(keywords){
+		return axios("/search?keywords="+keywords)
 	},
 	// index_rec() {
 	// 	// 首页个人推荐内容：歌单，新歌，mv，电台

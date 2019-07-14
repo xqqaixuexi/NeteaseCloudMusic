@@ -47,7 +47,8 @@ const defaultMusic = {
 		musicPicUrl:{},
 		singer:'',
 		privileges:JSON.parse(localStorage.getItem('privileges')) || {},
-		songIds:JSON.parse(localStorage.getItem('songIds')) || []
+		songIds:JSON.parse(localStorage.getItem('songIds')) || [],
+		keywords:''
 		//cw: document.getElementById("app").offsetWidth
  		
  	},
@@ -63,6 +64,9 @@ const defaultMusic = {
  		},
  		getCount: state =>{
  			return state.count;
+ 		},
+ 		getKeyWords: state =>{
+ 			return state.keywords;
  		}
  		// getPlayUrl: state =>{
  		// 	return state.playurl;
@@ -70,7 +74,7 @@ const defaultMusic = {
 
  	},
  	mutations: {
- 		loginedMsg(state,isLogined){
+ 		loginedMsg(state,isLogined){//登录状态
  			localStorage.setItem("isLogined", JSON.stringify(isLogined));
  			state.isLogined = isLogined;
  		},
@@ -110,10 +114,17 @@ const defaultMusic = {
  			localStorage.setItem("count", JSON.stringify(count));
  			state.count = count;	
 
- 		}, 		
+ 		}, 
+ 		keyWords(state,keywords) {
+ 			localStorage.setItem("keywords", keywords);
+ 			state.keywords = keywords
+ 		},		
 
  	},
  	actions: {
+ 		keyWords({state,commit}){
+ 			commit("keyWords")
+ 		}
 		// async userMsg({
 		// 	state,
 		// 	commit

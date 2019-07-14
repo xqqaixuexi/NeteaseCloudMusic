@@ -44,7 +44,7 @@
 							</p>
 							<p  class="intro cf " v-bind:class="{ hide: isHide }" v-html="lyricHide">
 							</p>
-							<div v-show="lyric!=''" class="changeBtn" @click="lyricShowOrHide($event)" >展开</div>
+							<div v-show="lyricShow != '暂时没有歌词'" class="changeBtn" @click="lyricShowOrHide($event)" >展开</div>
 							<p  v-show="lyricUser.nickname"class="lyricUser">
 								贡献歌词：
 								<span >{{lyricUser.nickname}}</span>
@@ -145,98 +145,6 @@
  				])
  		},
  		methods:{
- 			// audioPlay() {
- 			// 	var self = this;
- 			// 	this.musicPlayShowOrHide(self)
- 			// 	this.$store.commit('songIdMsg',this.musicId)
- 			// 	localStorage.setItem("songId",this.musicId);
- 			// 	if(this.songIds.indexOf(parseInt(this.musicId)) === -1){
- 			// 		this.songIds.push(parseInt(this.musicId))
- 			// 		this.$store.commit('countMsg',this.songIds.length-1)
- 			// 	}
- 			// 	else{
-				// 	this.$store.commit('countMsg',this.songIds.indexOf(parseInt(this.musicId)))
- 			// 	}
- 			// 	if(Object.keys(this.getSongId).length!=0){
-		  //   		var audio = document.getElementById("myAudio")
-		  //   		var innerPlay = document.getElementById("innerPlay")
-		  //   		var innerPause = document.getElementById("innerPause")
-	   //  			var audioLength = document.getElementById("audioLength")
-	   //  			var audioCircular = document.getElementById("audioCircular")
-	   //  			var nowTime = document.getElementById("nowTime")
-	   //  			var totalTime = document.getElementById("totalTime")
-		  //   		//var audioDur = audio.duration
-		    		
-				// 	if(audio!==null){
-				// 		//innerPause.classList.remove("hide")
-				// 		//innerPlay.classList.add("hide")
-				// 		//audio.currentTime = 0;//重新播放
-				// 		console.log(audio)
-				// 		audio.currentTime = 0;
-				// 		//audio.play();
-				// 		audio.addEventListener("canplay", function(){
-				// 			//
-
-				// 			audio.play();
-				// 			innerPause.classList.remove("hide")
-				// 			innerPlay.classList.add("hide")
-				// 			console.log('canplay')
-				// 		})
-						
-				// 		//监听音频播放时间，并更新进度条
-				// 		audio.addEventListener('timeupdate', function () {
-				//            updateProgress(audio)
-				//         }, false);
-						
-				// 	}
-		    		
-			 //        //进度条进度及播放暂停按钮切换
-				// 	function updateProgress(audio) {
-				// 		var audioTime = (audio.currentTime/audio.duration)*500
-				// 		audioLength.style.width = audioTime + 'px'
-				// 		audioCircular.style.left = (audioTime-6) +'px'
-				// 		if(audio.paused === true && audio.currentTime===audio.duration) {
-				// 		 	innerPause.classList.add("hide")
-				// 			innerPlay.classList.remove("hide")
-						 	
-				// 		 } 
-				// 		 //console.log(audioDur)
-				// 	    nowTime.innerHTML = transTime(audio.currentTime);
-				// 	    totalTime.innerHTML = transTime(audio.duration);
-				// 	}
-				// 	//时间换算
-				// 	function transTime(value) {
-				// 	    var time = "";
-				// 	    var h = parseInt(value / 3600);
-				// 	    value %= 3600;
-				// 	    var m = parseInt(value / 60);
-				// 	    var s = parseInt(value % 60);
-				// 	    if (h > 0) {
-				// 	        time = formatTime(h + ":" + m + ":" + s);
-				// 	    } else {
-				// 	        time = formatTime(m + ":" + s);
-				// 	    }
-
-				// 	    return time;
-				// 	}
-				// 	//格式化时间
-				// 	function formatTime(value) {
-				// 	    var time = "";
-				// 	    var s = value.split(':');
-				// 	    var i = 0;
-				// 	    for (; i < s.length - 1; i++) {
-				// 	        time += s[i].length == 1 ? ("0" + s[i]) : s[i];
-				// 	        time += ":";
-				// 	    }
-				// 	    time += s[i].length == 1 ? ("0" + s[i]) : s[i];
-
-				// 	    return time;
-				// 	} 				 	
- 			// 	}
-
-	   //      	//console.log(localStorage.getItem("songId"))
-
-	   //      },
  			//获取歌曲详情
  			getSongDetail(ids){
  				api.get_songDetail(ids).then(res=>{
@@ -252,16 +160,16 @@
  			//获取歌词
  			getLyric(id){
  				api.get_lyric(id).then(res=>{
- 					//console.log(res)
  					if(res.status=200){
+ 						console.log(res)
  						if(res.data.lrc!=null||res.data.lrc!=undefined){
  							if(res.data.lyricUser){
  								this.lyricUser = res.data.lyricUser
  							}
 
- 							
- 							 if(res.data.transUser){
- 							this.transUser = res.data.transUser
+ 							 						
+ 							if(res.data.transUser){
+ 								this.transUser = res.data.transUser
 	 						}
 	 						this.lyric = res.data.lrc.lyric.replace(/\[.*?\]/g,'')
 	 						this.lyric = this.lyric.replace(/\n/g,",")
@@ -278,7 +186,9 @@
 							this.lyric = this.lyric.join("<br/>")
 	 						let lyricLength = this.lyric.length
 	 						let num = this.getLyricShow(this.lyric,'<br/>',14)
+	 						// console.log(this.lyric)
 	 						this.lyricShow = this.lyric.substring(0,num)
+	 						// console.log(this.lyricShow)
 	 						this.lyricHide = this.lyric.substring(num,lyricLength)
  						}
  						else{
@@ -287,6 +197,10 @@
 
 
  					}
+ 					else{
+ 						this.lyricShow = "获取歌词失败！"
+ 					}
+
  				})
  			},
  			//获取相似歌曲

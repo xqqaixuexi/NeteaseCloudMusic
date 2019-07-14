@@ -16,7 +16,7 @@
 					</li>
 					<li>
 						<span>
-							<a href="" class="">
+							<a href="javascript:void(0);" class="">
 								<em>我的音乐</em>
 								<sub class="cor"></sub>
 							</a>
@@ -49,7 +49,7 @@
 				<div class="search">
 					<div class="searchbg">
 						<span class="parent">
-							<input type="" name="" placeholder="搜索歌曲">
+							<input ref="search" type="" name="" placeholder="搜索歌曲" v-model.trim="search_value" @keyup.enter="enterSearchMember($event)">
 						</span>
 					</div>
 				</div>
@@ -95,58 +95,56 @@
 	</div>
 </template>
 <script>
-import api from "@/api"
-import { mapGetters } from 'vuex'
+	import api from "@/api"
+	import { mapGetters } from 'vuex'
 	export default {
 		name:'top',
 		// props:{
-		// 	resoures
+		// 	["search_value"]
 		// },
 		data(){
 			return{
-
+				search_value:''
 			}
 		},
 		mounted (){
+			//this.$refs.search.value = this.getKeyWords
+			this.search_value= this.getKeyWords
 		},
 		computed: {
 		    ...mapGetters([
 		    	'getUserInfo',
-		    	'logined'
+		    	'logined',
+		    	'getKeyWords'
 		      // ...
 		    ])
 		},
 		methods: {
+			//搜索
+			enterSearchMember(e){
+				let searchNick = e.srcElement.value
+				if (searchNick !== 0 && searchNick !==undefined && searchNick !=='') {
+					this.$store.commit('keyWords',searchNick)
+					this.$router.push({name:'Search', query:{keywords:searchNick}})	
+				}
+			},
+			//登出接口有问题，只能模拟登出
 			Logout() {
 				let r=confirm("您确定退出吗？");
 				if(r==true){
+					// api.logout().then(res=>{
+					// 	console.log(this.res)
+					// })
 					this.$store.commit('loginedMsg',false)
-					this.$router.go(0)
+					this.$router.push({name:'Index'})
+					// this.$router.go(0)
 				}
 				else{
 					return
-				}
-				//localStorage.setItem("isLogined", false);
-				//console.log(localStorage.getItem("isLogined"))
-						//登出接口有问题
-				// api.logout().then(res =>{					
-				// 	if(res.data.code = 200) {
-
-				// 		console.log(this.res)
-				// 		this.$store.commit('loginedMsg',false)
-				// 		this.$router.go(0)
-				// 		//this.personalized= res.data.result
-				// 		// console.log(this.personalized)
-				// 	}
-				//  })				
+				}			
 			}
-			
-
-
 		}
-
 	}
-
 </script>
 <style lang="less" scoped>
     a{
@@ -231,6 +229,7 @@ import { mapGetters } from 'vuex'
 			    		border-radius:100%;
 			    		width:30px;
 			    		height:30px;
+			    		min-height:20px;
 			    	}
 			    }
 			    .userInfoList{

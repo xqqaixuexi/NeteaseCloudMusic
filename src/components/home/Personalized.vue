@@ -7,20 +7,20 @@
 				<div class="cf">
 					<a href="/discover/playlist/" class="tit">热门推荐</a>
 					<div class="tab">
-						<a href="">华语</a>
+						<a href="javascript:void(0);">华语</a>
 						<span>|</span>
-						<a href="">流行</a>
+						<a href="javascript:void(0);">流行</a>
 						<span>|</span>
-						<a href="">摇滚</a>
+						<a href="javascript:void(0);">摇滚</a>
 						<span>|</span>
-						<a href="">民谣</a>
+						<a href="javascript:void(0);">民谣</a>
 						<span>|</span>
-						<a href="">电子</a>
+						<a href="javascript:void(0);">电子</a>
 						<span>|</span>
 					</div>
 					<span class="more">
-						<a href="">更多</a>
-						>>
+						<a href="javascript:void(0);">更多</a>
+						→
 					</span>
 				</div>
 			</div>
@@ -36,7 +36,7 @@
 						<!-- <a :href="'/#/playlist/?id='+item.id" class="msk" title="查看歌单"></a> -->
 						<div class="bottom">
 							<span class="nb">
-								{{item.playCount>10000 ? Math.floor(item.playCount/10000)+'万': item.playCount}}
+								{{item.playCount|formatCount}}
 							</span>
 						</div>
 					</div>
@@ -48,8 +48,8 @@
 			<div class="homenav-h2">
 				<a href="" class="tit f-ff2 f-tdn">新碟上架</a>
 				<span class="more">
-					<a href="">更多</a>
-					>>
+					<a href="javascript:void(0);">更多</a>
+					→
 				</span>
 			</div>
 			<div class="album-main">
@@ -68,8 +68,8 @@
 			<div class="homenav-h2">
 				<a href="/discover/toplist" class="tit f-ff2 f-tdn">榜单</a>
 				<span class="more">
-					<a href="">更多</a>
-					>>
+					<a href="javascript:void(0);">更多</a>
+					→
 				</span>
 			</div>
 			<div class="topList-main cf">
@@ -188,7 +188,7 @@
 		<div class="singerList">
 			<h3 class="v-hd3">
 				<span>入驻歌手</span>
-				<a href="">查看全部></a>
+				<a href="javascript:void(0);">查看全部></a>
 			</h3>
 			<ul class="singerList-main">
 				<li v-for="(item,index) in artists" v-if="index<5" class="cf">		
@@ -222,6 +222,20 @@
 				newMusicList:{},
 				yuancMusicList:{},
 				artists:{}
+			}
+		},
+		filters: {
+			formatCount(count){
+				if(count>100000000){//亿
+					count = Math.floor(count/100000000*10)/10+'亿次'
+				}
+				else if(count>100000){//10万
+					count = Math.floor(count/10000*10)/10+'万次'
+				}
+				else{
+					count = count +'次'
+				}
+				return count;
 			}
 		},
 		mounted(){
@@ -284,6 +298,7 @@
 			},
 			singerList(cat){
 				api.get_singerList(cat).then(res =>{
+					console.log(res)
 					if(res.data.code = 200){
 						this.artists = res.data.artists
 					}
@@ -303,8 +318,10 @@
 		    width: 980px;
 		    margin:0 auto;
 		    border: 1px solid #d3d3d3;
+		    border-top:0;
 		    font-family: Arial, Helvetica, sans-serif;
 		    font-size: 12px;
+		    background: #fff;
 		    .home-left{
 		    	float:left;
 		    	width: 75%;
@@ -391,15 +408,9 @@
 					    height: 27px;
 					    background-position: 0 -537px;
 					    background: url(../../images/coverall.png) no-repeat;
-						.icon-play {
-							display:block;
-						    width: 16px;
-						    height: 17px;
-						    background-position: 0 -100px;
-						    background: url(../../images/iconall.png) no-repeat;
-						    float: right;
-						}
-					    
+					    .nb{
+					    	line-height:27px;
+					    }
 					}
 				}
 		    }
@@ -525,7 +536,8 @@
 	}
 	.userInfo2{
 		height: 185px;
-		border-bottom:1px solid #ccc;	
+		border-bottom:1px solid #ccc;
+		background:#fafafa;	
 		.n-myinfo {
 		    height: 106px;
 		    padding-top: 20px;

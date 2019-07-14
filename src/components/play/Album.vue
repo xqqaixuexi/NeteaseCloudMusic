@@ -37,7 +37,7 @@
 								</div>
 							</div>							
 						</div>
-						<div class="n-albdesc cf" >
+						<div v-if="description"class="n-albdesc cf" >
 							<h3>专辑介绍：</h3>
 							<p>
 								{{description}}

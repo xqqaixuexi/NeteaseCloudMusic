@@ -5,12 +5,21 @@ export default {
     	Vue.prototype.formatDuring=function(mss) {
     		 //    var days = parseInt(mss / (1000 * 60 * 60 * 24));
 		 		var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-			    var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60))>9 ? parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)) : '0'+parseInt((mss % (1000 * 60 * 60)) / (1000 * 60))
+			    var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60))
 			    var seconds = parseInt((mss % (1000 * 60)) / 1000)>9 ? parseInt((mss % (1000 * 60)) / 1000):'0'+parseInt((mss % (1000 * 60)) / 1000)
 			    if(hours===0){
-			    	return   minutes + " : " + seconds 
-			    }else{
+			    	if(minutes===0){
+			    		return '00'+':'+seconds
+			    	}
+			    	else{
+			    		minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60))>9 ? parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)) : '0'+parseInt((mss % (1000 * 60 * 60)) / (1000 * 60))
+			    		return   minutes + " : " + seconds 
+			    	}
+			    	
+			    }
+			    else{
 			    	hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))>9 ? parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) : '0'+parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+			    	minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60))>9 ? parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)) : '0'+parseInt((mss % (1000 * 60 * 60)) / (1000 * 60))
 			    	return  hours + " : " + minutes + " : " + seconds ;
 			    }
 			    
@@ -49,8 +58,6 @@ export default {
 				audio.currentTime = 0;
 				//audio.play();
 				audio.addEventListener("canplay", function(){
-					//
-
 					audio.play();
 					innerPause.classList.remove("hide")
 					innerPlay.classList.add("hide")

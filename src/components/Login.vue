@@ -5,7 +5,7 @@
 		<form @submit.prevent="login">
 			<div class="formc-cnt">
 				<span>账号：</span>
-				<input auto-focus placeholder="手机号/邮箱" type="text" required v-model="name" />
+				<input auto-focus placeholder="手机号" type="text" required v-model="name" />
 			</div>
 			<div class="formc-cnt">
 				<span>密码：</span>
@@ -22,9 +22,7 @@
 <script>
 	import api from "@/api"
 	import { mapGetters } from 'vuex'
-	import {
-		Toast
-	} from 'mint-ui';
+	import { Toast } from 'mint-ui';
 	export default {
 		name: 'login',
 		data() {
@@ -50,9 +48,16 @@
 				this.loading = true;
 				api.login(this.name, this.pwd).then(res => {
 					this.loading = false;
+					console.log(res)
 					if(res.data.code != 200) {
-						Toast({
-							message: '登录失败，请重试！',
+						if(res.data.code == -460){
+							Toast({
+								message: '登录接口被关了(伪造请求被屏蔽）',
+								duration: 5000
+							});
+						}
+						else Toast({
+							message: res.data.msg,
 							duration: 5000
 						});
 						return;

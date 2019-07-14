@@ -15,18 +15,17 @@
 									<h2>{{playListDetail.name}}</h2>
 								</div>
 							</div>
-<!-- 							<div class="user cf">
+							<div class="user cf">
 								<a class="face" :href="'/#/user/home?id='+playListDetail.userId">
-								1
-									<img src="">
+								
+									<img :src="playListDetail.creator.avatarUrl">
 								</a>
-								<span></span>
-								<sup></sup>
-								<span></span>
-							</div> -->
-							<div class="tags cf">
-								<b>标签：</b>
-								<span v-for="item in playListDetail.tags">{{item}}</span>
+								<span class="name">
+									<a :href="'/#/user/home?id='+playListDetail.userId">  
+										{{playListDetail.creator.nickname}}
+									</a>
+								</span>
+								<!-- <span>{{playListDetail.createTime| formatDate }}</span> -->
 							</div>
 							<div class="m-info cf">
 								<div class="play" @click="audioPlay(privileges)">
@@ -38,6 +37,10 @@
 							        	播放
 							        </span>
 								</div>
+							</div>
+							<div v-show="playListDetail.tags.length!=0"class="tags cf">
+								<b>标签：</b>
+								<span v-for="item in playListDetail.tags">{{item}}</span>
 							</div>
 							<p class="intro cf" v-html="description">
 								<b>介绍：</b>
@@ -128,7 +131,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="playlist-right">
+			<div v-show="playListDetail.subscribedCount!=0" class="playlist-right">
 				<div class="g-wrap7">
 					<h3 class="u-hd3">
 						<span>喜欢这个歌单的人</span>
@@ -166,6 +169,21 @@ export default {
     	musicId:''
   	}
   },
+    // filters: {
+    //     formatDate(time) {
+    //       var time = new Date(time*1000);
+
+    //     var y = time.getFullYear(); //getFullYear方法以四位数字返回年份
+    //     var M = time.getMonth() + 1; // getMonth方法从 Date 对象返回月份 (0 ~ 11)，返回结果需要手动加一
+    //     var d = time.getDate(); // getDate方法从 Date 对象返回一个月中的某一天 (1 ~ 31)
+    //     var h = time.getHours(); // getHours方法返回 Date 对象的小时 (0 ~ 23)
+    //     var m = time.getMinutes(); // getMinutes方法返回 Date 对象的分钟 (0 ~ 59)
+    //     var s = time.getSeconds(); // getSeconds方法返回 Date 对象的秒数 (0 ~ 59)
+    //     return y + '-' + M + '-' + d + ' ' + h + ':' + m + ':' + s;
+    //     }
+    //         // var date = new Date(time*1000).toString();
+    //         // return date;
+    // },
   components: {
    		//Loading,
     	Top,
@@ -199,6 +217,7 @@ export default {
   					//this.$store.commit('privilegesMsg',res.data.privileges)
   					//localStorage.setItem("privileges",res.data.privileges);
   					console.log(res.data)
+  					if(res.data.playlist.description!=null)
   					this.description = res.data.playlist.description
   					this.description = this.description.length>100?this.description.substr(0,100)+'...':this.description
   					this.description = this.description.replace(/\n/g,"<br/>")
@@ -206,113 +225,7 @@ export default {
   				}
   				console.log(this.description)
   			})
-  		},
-		// audioPlay() {
-		// 	var self = this
-	 //    	console.log(this.getSongId)
-	 //    	this.$store.commit('songIdMsg',this.musicId)
-	 //    	console.log(this.getSongId)
-	 //    	this.getSongIds( this.privileges)
-	 //    	this.musicPlayShowOrHide(self)
-		// 	var audio = document.getElementById("myAudio")
-		// 	var innerPlay = document.getElementById("innerPlay")
-		// 	var innerPause = document.getElementById("innerPause")
-		// 	var audioLength = document.getElementById("audioLength")
-		// 	var audioCircular = document.getElementById("audioCircular")
-		// 	var nowTime = document.getElementById("nowTime")
-		// 	var totalTime = document.getElementById("totalTime")
-		// 	var audioDur = audio.duration
-			
-		// 	if(audio!==null){
-		// 		//innerPause.classList.remove("hide")
-		// 		//innerPlay.classList.add("hide")
-		// 		//audio.currentTime = 0;//重新播放
-		// 		console.log(audio)
-		// 		audio.currentTime = 0;
-		// 		//audio.play();
-		// 		audio.addEventListener("canplay", function(){
-		// 			//
-
-		// 			audio.play();
-		// 			innerPause.classList.remove("hide")
-		// 			innerPlay.classList.add("hide")
-		// 			console.log('canplay')
-		// 		})
-				
-		// 		//监听音频播放时间，并更新进度条
-		// 		audio.addEventListener('timeupdate', function () {
-		//            updateProgress(audio)
-		//         }, false);
-				
-		// 	}
-	 //        //进度条进度及播放暂停按钮切换
-		// 	function updateProgress(audio) {
-		// 		var audioTime = (audio.currentTime/audio.duration)*500
-		// 		audioLength.style.width = audioTime + 'px'
-		// 		audioCircular.style.left = (audioTime-6) +'px'
-		// 		if(audio.paused === true && audio.currentTime===audioDur) {
-		// 		 	innerPause.classList.add("hide")
-		// 			innerPlay.classList.remove("hide")
-				 	
-		// 		 } 
-		// 		 //console.log(audioDur)
-		// 	    nowTime.innerHTML = transTime(audio.currentTime);
-		// 	    totalTime.innerHTML = transTime(audioDur);
-		// 	}
-		// 	//时间换算
-		// 	function transTime(value) {
-		// 	    var time = "";
-		// 	    var h = parseInt(value / 3600);
-		// 	    value %= 3600;
-		// 	    var m = parseInt(value / 60);
-		// 	    var s = parseInt(value % 60);
-		// 	    if (h > 0) {
-		// 	        time = formatTime(h + ":" + m + ":" + s);
-		// 	    } else {
-		// 	        time = formatTime(m + ":" + s);
-		// 	    }
-
-		// 	    return time;
-		// 	}
-		// 	//格式化时间
-		// 	function formatTime(value) {
-		// 	    var time = "";
-		// 	    var s = value.split(':');
-		// 	    var i = 0;
-		// 	    for (; i < s.length - 1; i++) {
-		// 	        time += s[i].length == 1 ? ("0" + s[i]) : s[i];
-		// 	        time += ":";
-		// 	    }
-		// 	    time += s[i].length == 1 ? ("0" + s[i]) : s[i];
-
-		// 	    return time;
-		// 	}
-	 //    },
-	    // getSongIds(p){
-
-	    // 	var arr = this.songIds
-	    // 	console.log(this.songIds)
-	    // 	this.$store.commit('countMsg',this.songIds.length)
-	    // 	console.log(this.getCount)
-	    // 	for(var i=0;i<p.length;i++){
-	    // 		// arr.push(p[i].id)
-	    // 		if(this.songIds.indexOf(parseInt(p[i].id)) === -1){
-	    // 			arr.push(p[i].id)
-	    // 			//this.$store.commit('countMsg',this.count+1)
-
-	    // 		}
-	    // 		else{
-	    // 			//console.log(this.songIds.indexOf(parseInt(p[0].id)))
-
-	    // 			this.$store.commit('countMsg',this.songIds.indexOf(parseInt(p[0].id)))
-	    // 		}
-	    		
-	    // 	}
-	    // 	console.log(this.getCount)
-	    // 	this.$store.commit('songIdsMsg',arr)
-	    // 	this.$store.commit('songIdMsg',this.songIds[this.getCount])
-	    // 	console.log(this.songIds)
-	    // },
+  		}
   }
 
 }
@@ -374,6 +287,7 @@ export default {
 							    font-size: 20px;
 							    font-weight: normal;
 							    font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
+							    text-align:left;
     						}
 						}
 					}
@@ -385,6 +299,13 @@ export default {
 						    width: 35px;
 						    height: 35px;
 						    margin-right:10px;
+    					}
+    					.name{
+    						float:left;
+    						a{
+    							color: #0c73c2;
+    							cursor: pointer;
+    						}
     					}
 					}
 					.tags{
@@ -410,6 +331,7 @@ export default {
 						}
 					}
 					.m-info{
+						margin-top:20px;
 						.play{
 							cursor:pointer;
 							width:65px;
@@ -427,7 +349,7 @@ export default {
 							    border-radius: 50%;
 							    position:absolute;
 							    margin-top:5px;
-							    margin-left:5px;
+							    margin-left:3px;
 	    						.circle_inner_play {
 								    content: "";
 								    display: block;

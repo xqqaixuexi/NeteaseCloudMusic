@@ -17,27 +17,9 @@ import base from './base'
 // Vue.use(mint);
 Vue.use(ElementUI);
 Vue.use(base);
-// var instance = axios.create({
-//   baseURL:"http://192.168.193.121:4000/",
-//   timeout:5000,
-//   headers: {'X-Custom-Header':'foobar'}
-// });
+
 
 axios.defaults.baseURL = 'http://localhost:4000/';
-// axios.get('http://localhost:4000/artist/list')
-//   .then(function(response){
-//     console.log(response);
-//   })
-//   .catch(function(err){
-//     console.log(err);
-//   });
-  // axios.get('http://localhost:4000/login?email=zhangmengqi0218@163.com&password=NINGYANXIA0218')
-  // .then(function(response){
-  //   console.log(response);
-  // })
-  // .catch(function(err){
-  //   console.log(err);
-  // });
 axios.interceptors.request.use(function(config) { // 这里的config包含每次请求的内容
 	if(config.params && config.params.auth && !logined) {
 		// 需要登录验证的url 需带params.auth=true
