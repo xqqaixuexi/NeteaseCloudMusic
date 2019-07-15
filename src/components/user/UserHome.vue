@@ -118,6 +118,14 @@
 				return count;
 			}
 		},
+		watch:{
+			'$route' (to,from){
+				if(this.$route.query.id){
+					this.getUserDetail(this.$route.query.id)
+					this.getUserPlayList(this.$route.query.id)
+				}
+			}
+		},
 		mounted(){
 			if(this.getUserInfo.profile.userId == this.$route.query.id){
 				this.myOrThem = true

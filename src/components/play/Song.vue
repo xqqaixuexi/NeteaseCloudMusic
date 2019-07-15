@@ -25,7 +25,7 @@
 							</div>
 							<p class="tags cf" >
 								<b>所属专辑：</b>
-								<a href="">
+								<a :href="'/#/album/?id='+songDetail.al.id">
 									{{album}}
 								</a>							
 							</p>
@@ -148,7 +148,7 @@
  			//获取歌曲详情
  			getSongDetail(ids){
  				api.get_songDetail(ids).then(res=>{
- 					//console.log(res)
+ 					console.log(res)
  					if(res.code=200){
  						this.songDetail = res.data.songs[0]
  						this.picUrl = this.songDetail.al.picUrl

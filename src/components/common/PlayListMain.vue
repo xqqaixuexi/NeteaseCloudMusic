@@ -1,160 +1,139 @@
 <template>
-	<div>
-		<Top></Top>
-		<div id="m-playlist" class="g-bd4 cf">
-			<div class="playlist-left">
-				<div class="g-wrap6">
-					<div class="playlistIntroduction cf">
-						<div class="playlistImage">
-							<img class="coverImg":src="playListDetail.coverImgUrl">
-						</div>
-						<div class="playlistText">
-							<div class="hd cf">
-								<i class="u-icn"></i>
-								<div class="tit">
-									<h2>{{playListDetail.name}}</h2>
-								</div>
-							</div>
-							<div class="user cf">
-								<a class="face" :href="'/#/user/home?id='+playListDetail.userId">
-								
-									<img :src="playListDetail.creator.avatarUrl">
-								</a>
-								<span class="name">
-									<a :href="'/#/user/home?id='+playListDetail.userId">  
-										{{playListDetail.creator.nickname}}
-									</a>
-								</span>
-								<!-- <span>{{playListDetail.createTime| formatDate }}</span> -->
-							</div>
-							<div class="m-info cf">
-								<div class="play" @click="audioPlay(privileges)">
-									<div  class="circle " title="播放">
-							            <div class="circle_inner_play">
-							            </div>
-							        </div>
-							        <span>
-							        	播放
-							        </span>
-								</div>
-							</div>
-							<div v-show="playListDetail.tags.length!=0"class="tags cf">
-								<b>标签：</b>
-								<span v-for="item in playListDetail.tags">{{item}}</span>
-							</div>
-							<p class="intro cf" v-html="description">
-								<b>介绍：</b>
-							</p>
-						</div>
+		<div class="playlist-left">
+			<div class="g-wrap6">
+				<div class="playlistIntroduction cf">
+					<div class="playlistImage">
+						<img class="coverImg":src="playListDetail.coverImgUrl">
 					</div>
-					<div class="n-songtb">
-						<div class="u-title cf">
-							<h3>
-								<span>歌曲列表</span>
-							</h3>
-							<span class="sub">
-								<span>{{playListDetail.trackCount}}</span>
-								首歌
-							</span>
-							<div class="more">
-								播放：
-								<strong>{{playListDetail.playCount}}</strong>
-								次
+					<div class="playlistText">
+						<div class="hd cf">
+							<i class="u-icn"></i>
+							<div class="tit">
+								<h2>{{playListDetail.name}}</h2>
 							</div>
 						</div>
-						<div class="song-table">
-							<table class="m-table">
-								<thead>
-									<tr>
-										<th class="w1">
-											<div class="wp"></div>
-										</th>
-										<th class="">
-											<div class="wp">歌曲标题</div>
-										</th>
-										<th class="w2">
-											<div class="wp">时长</div>
-										</th>
-										<th class="w3">
-											<div class="wp">歌手</div>
-										</th>
-										<th class="w4">
-											<div class="wp">专辑</div>
-										</th>																				
-									</tr>
-								</thead>
-								<tbody>
-									<tr v-for="(item,index) in playListDetail.tracks">
-										<td class="w1">
-											<div>{{index+1}}</div>
-										</td>
-										<td class="">
-											<div>
-												<a :href="'/#/song?id='+item.id">
-													<span>
-														{{item.name}}
-													</span>
-												</a>
-											</div>
-										</td>
-										<td class="w2">
-											<div>
-												<a :href="'/#/song?id='+item.id">
-													<span>
-														{{formatDuring(item.dt)}}
-													</span>
-												</a>
-											</div>
-										</td>
-										<td class="w3">
-											<div>
-												<a href="">
-													<span>
-														{{item.ar[0].name}}
-													</span>
-												</a>
-											</div>
-										</td>
-										<td class="w4">
-											<div>
-												<a :href="'#/album?id='+item.al.id">
-													<span :title="item.al.name">
-														{{item.al.name.length>7?item.al.name.substr(0,7)+'...':item.al.name}}
-													</span>
-												</a>
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+						<div class="user cf">
+							<a class="face" :href="'/#/user/home?id='+playListDetail.userId">
+							
+								<img :src="playListDetail.creator.avatarUrl">
+							</a>
+							<span class="name">
+								<a :href="'/#/user/home?id='+playListDetail.userId">  
+									{{playListDetail.creator.nickname}}
+								</a>
+							</span>
+							<!-- <span>{{playListDetail.createTime| formatDate }}</span> -->
 						</div>
+						<div class="m-info cf">
+							<div class="play" @click="audioPlay(privileges)">
+								<div  class="circle " title="播放">
+						            <div class="circle_inner_play">
+						            </div>
+						        </div>
+						        <span>
+						        	播放
+						        </span>
+							</div>
+						</div>
+						<div v-show="playListDetail.tags.length!=0"class="tags cf">
+							<b>标签：</b>
+							<span v-for="item in playListDetail.tags">{{item}}</span>
+						</div>
+						<p class="intro cf" v-html="description">
+							<b>介绍：</b>
+						</p>
 					</div>
 				</div>
-			</div>
-			<div v-show="playListDetail.subscribedCount!=0" class="playlist-right">
-				<div class="g-wrap7">
-					<h3 class="u-hd3">
-						<span>喜欢这个歌单的人</span>
-					</h3>
-					<ul class="m-piclist cf">
-						<li class=""v-for="item in playListDetail.subscribers">
-							<a :href="'/#/user/home?id='+item.userId" :title="item.nickname">
-								<img :src="item.avatarUrl">
-							</a>
-						</li>
-					</ul>
+				<div class="n-songtb">
+					<div class="u-title cf">
+						<h3>
+							<span>歌曲列表</span>
+						</h3>
+						<span class="sub">
+							<span>{{playListDetail.trackCount}}</span>
+							首歌
+						</span>
+						<div class="more">
+							播放：
+							<strong>{{playListDetail.playCount}}</strong>
+							次
+						</div>
+					</div>
+					<div class="song-table">
+						<table class="m-table">
+							<thead>
+								<tr>
+									<th class="w1">
+										<div class="wp"></div>
+									</th>
+									<th class="">
+										<div class="wp">歌曲标题</div>
+									</th>
+									<th class="w2">
+										<div class="wp">时长</div>
+									</th>
+									<th class="w3">
+										<div class="wp">歌手</div>
+									</th>
+									<th class="w4">
+										<div class="wp">专辑</div>
+									</th>																				
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="(item,index) in playListDetail.tracks">
+									<td class="w1">
+										<div>{{index+1}}</div>
+									</td>
+									<td class="">
+										<div>
+											<a :href="'/#/song?id='+item.id">
+												<span>
+													{{item.name}}
+												</span>
+											</a>
+										</div>
+									</td>
+									<td class="w2">
+										<div>
+											<a :href="'/#/song?id='+item.id">
+												<span>
+													{{formatDuring(item.dt)}}
+												</span>
+											</a>
+										</div>
+									</td>
+									<td class="w3">
+										<div>
+											<a href="">
+												<span>
+													{{item.ar[0].name}}
+												</span>
+											</a>
+										</div>
+									</td>
+									<td class="w4">
+										<div>
+											<a :href="'#/album?id='+item.al.id">
+												<span :title="item.al.name">
+													{{item.al.name.length>7?item.al.name.substr(0,7)+'...':item.al.name}}
+												</span>
+											</a>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 </template>
 <script>
-	import api from "@/api"
- //import Loading from './common/Loading'
- import Top from '../common/Top'
+import api from "@/api"
  import { mapState,mapGetters } from 'vuex'
 export default {
-  name: 'playlist',
+  name: 'playlistmain',
   data () {
     return {
     	playListDetail:{},
@@ -165,7 +144,6 @@ export default {
   },
   components: {
    		//Loading,
-    	Top,
   },
   computed:{
   		...mapState([
@@ -180,10 +158,15 @@ export default {
   		
   },
   mounted(){
-  		console.log(this.getSongId)
   		this.getPlayListDetail(this.$route.query.id)
-  		//console.log(this.privileges)
   		
+  },
+  watch:{
+  		'$route' (to,from){
+  			if(this.$route.query){
+  				this.getPlayListDetail(this.$route.query.id)
+  			}
+  		}
   },
   methods:{
   		getPlayListDetail(id){
@@ -202,7 +185,6 @@ export default {
   					this.description = this.description.replace(/\n/g,"<br/>")
 
   				}
-  				console.log(this.description)
   			})
   		}
   }
@@ -210,17 +192,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-	.g-bd4 {
-    background: url(../../images/wrap4.png) repeat-y center 0;;
-    width: 980px;
-    min-height: 700px;
-    _height: 700px;
-    margin: 0 auto;
-    background-color: #fff;
-    border: 1px solid #d3d3d3;
-    border-width: 0 1px;
-    font-size:12px;
-}
 	.playlist-left{
 		float: left;
 		width: 708px;
@@ -466,43 +437,6 @@ export default {
 							}
 					    }
 					}
-			    }
-			}
-		}
-	}
-	.playlist-right{
-		float: right;
-		width: 270px;
-		height: 700px;
-		.g-wrap7{
-			padding: 20px 40px 40px 30px;
-			.u-hd3{
-				position: relative;
-			    height: 23px;
-			    margin-bottom: 20px;
-			    border-bottom: 1px solid #ccc;
-			    color: #333;
-			    span{
-			    	float:left;
-			    }
-			}
-			.m-piclist {
-				margin-left: -13px;
-			    padding-bottom: 25px;
-			    li{
-			    	float: left;
-			    	display: inline;
-    				padding: 0 0 13px 13px;
-				    img{
-					    width: 40px;
-					    height: 40px;
-				    }
-			    }
-			}
-			.m-rctlist {
-			    margin-bottom: 25px;
-			    li{
-
 			    }
 			}
 		}

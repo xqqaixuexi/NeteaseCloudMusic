@@ -59,35 +59,14 @@
 		<div class="m-nav2">
 			<div class="warp cf">
 				<ul class="nav-ul">
-					<li>
-						<a href="/#">
-							<em class="bg-red">推荐</em>
-						</a>
-					</li>
-					<li>
-						<a href="">
-							<em class="">排行榜</em>
-						</a>
-					</li>
-					<li>
-						<a href="">
-							<em class="">歌单</em>
-						</a>
-					</li>
-					<li>
-						<a href="">
-							<em class="">主播电台</em>
-						</a>
-					</li>
-					<li>
-						<a href="">
-							<em class="">歌手</em>
-						</a>
-					</li>
-					<li>
-						<a href="">
-							<em class="">新碟上架</em>
-						</a>
+					<li v-for="(item,index) in list">
+							<em :class="{selected: num == index}" :data-res-id="index" @click="getNum(index)">
+								
+								<a :href="item.href">
+								{{item.name}}
+								</a>
+							</em>
+						
 					</li>
 				</ul>
 			</div>
@@ -104,7 +83,34 @@
 		// },
 		data(){
 			return{
-				search_value:''
+				search_value:'',
+				num:0,
+				list:[
+					{
+						name:'推荐',
+						href:'/#/',
+					},
+					{
+						name:'排行榜',
+						href:'/#/discover/toplist?id=19723756',
+					},
+					{
+						name:'歌单',
+						href:'javascript:void(0);',
+					},
+					{
+						name:'主播电台',
+						href:'javascript:void(0);',
+					},
+					{
+						name:'歌手',
+						href:'javascript:void(0);',
+					},
+					{
+						name:'新碟上架',
+						href:'javascript:void(0);',
+					}
+				]
 			}
 		},
 		mounted (){
@@ -120,6 +126,10 @@
 		    ])
 		},
 		methods: {
+			//li样式
+            getNum(index){
+            	this.num = index
+            },
 			//搜索
 			enterSearchMember(e){
 				let searchNick = e.srcElement.value
@@ -153,8 +163,11 @@
 	.bg-black{
 		background: #000;
 	}
-	.bg-red{
+	.selected{
 		background: #9B0909;
+	}
+	.bg-unselected{
+		background: #C20C0C;
 	}
 	.m-nav li, .m-nav li span, .m-nav a, .m-nav a em {
 	    float: left;
@@ -307,6 +320,9 @@
 					    margin: 7px 17px 0;
 					    border-radius: 20px;
 					    line-height: 21px;
+					    a{			    	
+					    	text-decoration: none;
+					    }
 				    }
 				    &:hover{
 				    	em{

@@ -42,9 +42,13 @@ export default {
 	get_album(offset,limit){
 		return axios("/top/album?offset="+offset+"&limit="+limit)
 	},
-	//获取榜单
+	//排行榜
 	get_topList(idx){
 		return axios("/top/list?idx="+idx)
+	},
+	//所有榜单内容摘要
+	topList(){
+		return axios("/toplist/detail")
 	},
 	//获取歌手(可根据不同传参分类)
 	get_singerList(cat){

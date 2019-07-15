@@ -66,9 +66,9 @@
 		</div>
 		<div class="topList">
 			<div class="homenav-h2">
-				<a href="/discover/toplist" class="tit f-ff2 f-tdn">榜单</a>
+				<a href="javascript:void(0);" class="tit f-ff2 f-tdn">榜单</a>
 				<span class="more">
-					<a href="javascript:void(0);">更多</a>
+					<a href="/#/discover/toplist?id=19723756">更多</a>
 					→
 				</span>
 			</div>
@@ -77,10 +77,10 @@
 					<dt class="blk-top cf">
 						<div class="u-cover-4">
 							<img :src="cloudMusicList.coverImgUrl">
-							<a href="" class="msk"></a>
+							<a :href="'/#/discover/toplist?id='+cloudMusicList.id" class="msk"></a>
 						</div>
 						<div class="tit">
-							<a href="">
+							<a :href="'/#/discover/toplist?id='+cloudMusicList.id">
 								<h4>{{cloudMusicList.name}}</h4>
 							</a>
 						</div>				
@@ -88,11 +88,11 @@
 					<dd>
 						<ol>
 							<li v-for="(item, index) in cloudMusicList.tracks" v-if="index<10">
-								<span :style="topListStyle" > {{index+1}}</span>
+								<span :class="index<3 ? 'topThreeStyle':''" > {{index+1}}</span>
 								<a :href="'#/song?id='+item.id" :title="item.name">{{item.name}}</a>
 							</li>
 							<div class="more">
-								<a href="">查看全部></a>
+								<a :href="'/#/discover/toplist?id='+cloudMusicList.id">查看全部></a>
 							</div>
 						</ol>
 					</dd>
@@ -101,10 +101,10 @@
 					<dt class="blk-top cf">
 						<div class="u-cover-4">
 							<img :src="newMusicList.coverImgUrl">
-							<a href="" class="msk"></a>
+							<a :href="'/#/discover/toplist?id='+newMusicList.id" class="msk"></a>
 						</div>
 						<div class="tit">
-							<a href="">
+							<a :href="'/#/discover/toplist?id='+newMusicList.id">
 								<h4>{{newMusicList.name}}</h4>
 							</a>
 						</div>				
@@ -112,11 +112,11 @@
 					<dd>
 						<ol>
 							<li v-for="(item, index) in newMusicList.tracks" v-if="index<10">
-								<span :style="topListStyle" > {{index+1}}</span>
+								<span :class="index<3 ? 'topThreeStyle':''" > {{index+1}}</span>
 								<a :href="'#/song?id='+item.id" :title="item.name">{{item.name}}</a>
 							</li>
 							<div class="more">
-								<a href="">查看全部></a>
+								<a :href="'/#/discover/toplist?id='+newMusicList.id">查看全部></a>
 							</div>
 						</ol>
 					</dd>
@@ -125,10 +125,10 @@
 					<dt class="blk-top cf">
 						<div class="u-cover-4">
 							<img :src="yuancMusicList.coverImgUrl">
-							<a href="" class="msk"></a>
+							<a :href="'/#/discover/toplist?id='+yuancMusicList.id" class="msk"></a>
 						</div>
 						<div class="tit">
-							<a href="">
+							<a :href="'/#/discover/toplist?id='+yuancMusicList.id">
 								<h4>{{yuancMusicList.name}}</h4>
 							</a>
 						</div>				
@@ -136,11 +136,11 @@
 					<dd>
 						<ol>
 							<li v-for="(item, index) in yuancMusicList.tracks" v-if="index<10">
-								<span :style="topListStyle" > {{index+1}}</span>
+								<span :class="index<3 ? 'topThreeStyle':''"> {{index+1}}</span>
 								<a :href="'#/song?id='+item.id" :title="item.name">{{item.name}}</a>
 							</li>
 							<div class="more">
-								<a href="">查看全部></a>
+								<a :href="'/#/discover/toplist?id='+yuancMusicList.id">查看全部></a>
 							</div>
 						</ol>
 					</dd>
@@ -192,7 +192,7 @@
 			</h3>
 			<ul class="singerList-main">
 				<li v-for="(item,index) in artists" v-if="index<5" class="cf">		
-					<a href="" class="itm">
+					<a href="javascript:void(0);" class="itm">
 						<div class="head">
 							<img :src="item.picUrl">
 						</div>
@@ -248,13 +248,13 @@
 			console.log(this.getUserInfo)
 		},
 		computed:{
-		  	topListStyle() {
-			        if( this.index<3) {
-			            return 'color: #c10d0c';
-			        }
-			        // 否则不添加样式
-			        return 'color: #666';
-		  	},
+		  	// topListStyle() {
+			  //       if( this.index<3) {
+			  //           return 'color: #c10d0c';
+			  //       }
+			  //       // 否则不添加样式
+			  //       return 'color: #666';
+		  	// },
 		  	...mapGetters([
 				'logined',
 				'getUserInfo'
@@ -266,7 +266,7 @@
 				api.get_personalized().then(res =>{					
 					if(res.data.code = 200) {
 						this.personalized= res.data.result
-						//console.log(this.personalized)
+						//onsole.log(this.personalized)
 					}
 				})
 			},
@@ -293,6 +293,7 @@
 							this.yuancMusicList = res.data.playlist
 							// console.log(res.data.playlist)
 						}
+					console.log(res.data)
 					}
 				})
 			},
@@ -509,6 +510,9 @@
 					    color: #666;
 					    font-size: 16px;
 			    	}
+		    		.topThreeStyle{
+						color: #c10d0c;
+					}
 			    	a{
 			    		float: left;
 					    width: 170px;
