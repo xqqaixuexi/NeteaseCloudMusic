@@ -41,7 +41,7 @@
 					<h3>
 						<span v-if="myOrThem">{{"我创建的歌单®（"+likePlaylist.length+"）"}}</span>
 						<span v-if="!myOrThem">
-							{{userDetail.profile.nickname+"收藏的歌单®（"+likePlaylist.length+"）"}}
+							{{userDetail.profile.nickname+"创建的歌单®（"+likePlaylist.length+"）"}}
 						</span>
 					</h3>
 				</div>

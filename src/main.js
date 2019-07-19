@@ -17,7 +17,9 @@ import base from './base'
 // Vue.use(mint);
 Vue.use(ElementUI);
 Vue.use(base);
-
+router.afterEach((to,from,next) => {
+        window.scrollTo(0,0);
+});
 
 axios.defaults.baseURL = 'http://localhost:4000/';
 axios.interceptors.request.use(function(config) { // 这里的config包含每次请求的内容

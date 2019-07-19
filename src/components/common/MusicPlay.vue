@@ -361,7 +361,7 @@
 		    height: 45px;
 		    margin: 0 auto;
 		    background-color:black;
-		    opacity:0.85;
+	        background: rgba(0,0,0,0.85);
 			.hand {
 			    position: absolute;
 			    top: -10px;
