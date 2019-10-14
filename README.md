@@ -3,8 +3,8 @@
 ## 技术栈
 1. Vue全家桶(vue,vue-router,vuex)
 2. axios(http)
-4. 网易云音乐 NodeJS 版 API（接口服务），[地址在这里](https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=neteasecloudmusicapi)
-5.webpack
+3. 网易云音乐 NodeJS 版 API（接口服务)[地址在这里](https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=neteasecloudmusicapi)
+4.webpack
 
 
 ## 部署
@@ -41,18 +41,18 @@ npm run build --report
 ```
 
 ## 预览图
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/index.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/index_playlist.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/index_album.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/index_toplist.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/playlist.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/toplist.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/song.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/search.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/musicPlay.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/login.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/user.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/collectPlaylist.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/tree/master/image/index.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/tree/master/image/index_playlist.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/tree/master/image/index_album.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/tree/master/image/index_toplist.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/tree/master/image/playlist.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/tree/master/image/toplist.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/tree/master/image/song.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/tree/master/image/search.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/tree/master/image/musicPlay.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/tree/master/image/login.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/tree/master/image/user.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/tree/master/image/collectPlaylist.png)
 
 ## 已完成功能
 1. 首页（滚动页、热门推荐、新碟上架、榜单、入驻歌手)
