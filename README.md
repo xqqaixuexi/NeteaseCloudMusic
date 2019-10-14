@@ -41,18 +41,43 @@ npm run build --report
 ```
 
 ## 预览图
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/index.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/index_playlist.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/index_album.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/index_toplist.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/playlist.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/toplist.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/song.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/search.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/musicPlay.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/login.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/user.png)
-![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/collectPlaylist.png)
+首页
+![首页](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/index.png)
+
+![首页-专辑](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/index_album.png)
+
+![首页-排行榜](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/index_toplist.png)
+
+
+歌单
+![歌单](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/playlist.png)
+
+
+排行榜
+![排行榜](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/toplist.png)
+
+
+歌曲
+![歌曲](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/song.png)
+
+
+搜索
+![搜索](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/search.png)
+
+
+音乐播放
+![音乐播放](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/musicPlay.png)
+
+
+登录
+![登录](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/login.png)
+
+
+用户信息
+![用户信息](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/user.png)
+
+
+![用户收藏歌单](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/collectPlaylist.png)
 
 ## 已完成功能
 1. 首页（滚动页、热门推荐、新碟上架、榜单、入驻歌手)
