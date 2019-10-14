@@ -42,7 +42,7 @@ npm run build --report
 
 ## 预览图
 首页
-![首页](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/index.png)
+![首页](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/index.jpg)
 
 ![首页-专辑](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/index_album.png)
 
@@ -66,7 +66,7 @@ npm run build --report
 
 
 音乐播放
-![音乐播放](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/musicPlay.png)
+![音乐播放](https://github.com/xqqaixuexi/NeteaseCloudMusic/blob/master/image/musicPlay.jpg)
 
 
 登录
