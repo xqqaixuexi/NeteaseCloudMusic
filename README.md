@@ -1,8 +1,30 @@
-# neteasecloudmusic
+# Vue.js模仿网易云音乐（NodeJS 版 API）
 
-> A Vue.js project
+## 技术栈
+1. Vue全家桶(vue,vue-router,vuex)
+2. axios(http)
+4. 网易云音乐 NodeJS 版 API（接口服务），[地址在这里](https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=neteasecloudmusicapi)
+5.webpack
 
-## Build Setup
+
+## 部署
+
+### 后端项目
+
+``` bash
+# 克隆node后端代码到本地
+git clone 
+
+cd NeteaseCloudMusicApi
+
+# install dependencies
+npm install 
+
+# serve at localhost:4000
+node app.js
+```
+
+### 前台项目
 
 ``` bash
 # install dependencies
@@ -16,15 +38,30 @@ npm run build
 
 # build for production and view the bundle analyzer report
 npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## 预览图
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/index.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/index_playlist.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/index_album.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/index_toplist.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/playlist.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/toplist.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/song.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/search.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/musicPlay.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/login.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/user.png)
+![2](https://github.com/xqqaixuexi/NeteaseCloudMusic/edit/master/image/collectPlaylist.png)
+
+## 已完成功能
+1. 首页（滚动页、热门推荐、新碟上架、榜单、入驻歌手)
+2. 搜索（ 单曲、歌单、歌手、mv等...)
+3. 详情单页类（歌单、专辑、评论、用户)
+4. 播放页（单曲、上下一曲，播放、进度条、清空播放列表）
+5. 我的（登录，个人信息）
+
+
+
+## 存在的问题或bug
+1. 由于后台接口数据问题，暂时提供不了歌词。
